@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #video-change-div {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="text-align: center;">
+        <div id="image-change-div">
+            <img style="height: 315px; width: 560px; cursor: pointer;" src="./Screenshot_89.png" alt="">
+        </div>
+        <div id="video-change-div">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/lyey41gFPtI"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+    <script>
+        const getImage = document.getElementById('image-change-div');
+        const getVideo = document.getElementById('video-change-div');
+        const getTime = localStorage.getItem('firstTime');
+        const time = new Date();
+        if (!getTime) {
+            localStorage.setItem('firstTime', time)
+            setTimeout(() => {
+                getImage.style.display = 'none';
+                getVideo.style.display = 'block';
+            }, 60000);
+        }
+        if (getTime) {
+            const time = new Date();
+            const parseGetTime = Date.parse(getTime)
+            const parseTime = Date.parse(time)
+            const timeLeft = parseTime - parseGetTime;
+            const compareTime = 60000 - timeLeft; // 900000
+            if (compareTime <= 0) {
+                getImage.style.display = 'none';
+                getVideo.style.display = 'block';
+            }
+            if (compareTime > 0) {
+                setTimeout(() => {
+                    getImage.style.display = 'none';
+                    getVideo.style.display = 'block';
+                }, compareTime);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
